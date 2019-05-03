@@ -5,8 +5,8 @@
 
 using namespace std;
 
-void print_array(multiset<int> &multi_container) {
-  multiset<int>::iterator multi_iter;
+void print_array(multiset<char> &multi_container) {
+  multiset<char>::iterator multi_iter;
   multi_iter = multi_container.begin();
 
   for (int i = 1; multi_iter != multi_container.end(); ++i, ++multi_iter) {
@@ -15,31 +15,31 @@ void print_array(multiset<int> &multi_container) {
   cout << endl << endl;
 }
 
-void array_fill(multiset<int> &multi_container) {
-  int number;
+void array_fill(multiset<char> &multi_container) {
+  char item;
 
-  cout << "Введите 5 целых чисел: " << endl;
+  cout << "Введите 5 элементов массива: " << endl;
   for (int i = 0; i < 5; ++i) {
-    cin >> number;
-    multi_container.insert(number);
+    cin >> item;
+    multi_container.insert(item);
   } //Заполнение массива
   cout << endl;
   print_array(multi_container);
 }
 
-void delete_elem(multiset<int> &multi_container) {
-  int del_num;
+void delete_elem(multiset<char> &multi_container) {
+  char del_item;
 
   cout << "Введите значение элемента, который будет удален\\ны: " << endl;
-  cin >> del_num;
-  multi_container.erase(del_num); //Удаление элемента
+  cin >> del_item;
+  multi_container.erase(del_item); //Удаление элемента
   print_array(multi_container);
 }
 
-void modify_elem(multiset<int> &multi_container) {
-  int wrong_elem;
-  int right_elem;
-  multiset<int>::size_type num_wrong;
+void modify_elem(multiset<char> &multi_container) {
+  char wrong_elem;
+  char right_elem;
+  multiset<char>::size_type num_wrong;
 
   cout << "Введите значение, которое нужно заменить: " << endl;
   cin >> wrong_elem;
@@ -48,18 +48,18 @@ void modify_elem(multiset<int> &multi_container) {
 
   num_wrong = multi_container.erase(wrong_elem);
   if (num_wrong > 0) { //Замена элемента
-    vector<int> right_vect(num_wrong, right_elem);
+    vector<char> right_vect(num_wrong, right_elem);
     multi_container.insert(right_vect.begin(), right_vect.end());
   } else
     cout << "Отсутствует элемент с искомым значением." << wrong_elem << endl;
   print_array(multi_container);
 }
 
-void another_modify(multiset<int> &multi_container) {
+void another_modify(multiset<char> &multi_container) {
   int count;
-  int start_elem;
-  multiset<int>::iterator begin_multi_iter;
-  multiset<int>::iterator end_multi_iter;
+  char start_elem;
+  multiset<char>::iterator begin_multi_iter;
+  multiset<char>::iterator end_multi_iter;
 
   cout << "Введите значение элемента, с которого начнется удаление: " << endl;
   cin >> start_elem;
@@ -78,10 +78,10 @@ void another_modify(multiset<int> &multi_container) {
   print_array(multi_container);
 }
 
-void concat_arrays(multiset<int> &multi_container1,
-                   multiset<int> &multi_container2) {
-  multiset<int>::iterator begin_iter;
-  multiset<int>::iterator end_iter;
+void concat_arrays(multiset<char> &multi_container1,
+                   multiset<char> &multi_container2) {
+  multiset<char>::iterator begin_iter;
+  multiset<char>::iterator end_iter;
 
   begin_iter = multi_container2.begin();
   end_iter = multi_container2.end();
@@ -96,15 +96,19 @@ void concat_arrays(multiset<int> &multi_container1,
 
 int main() {
   setlocale(LC_ALL, "Russian");
-  multiset<int> multi_container1;
-  multiset<int> multi_container2;
-  multiset<int>::iterator multi_iter;
-
+  multiset<char> multi_container1;
+  multiset<char> multi_container2;
+  multiset<char>::iterator multi_iter;
+  // Пункт 1, 2
   array_fill(multi_container1);
-  //  delete_elem(multi_container1);
-  //  modify_elem(multi_container1);
+  // Пункт 3, 4
+  delete_elem(multi_container1);
+  modify_elem(multi_container1);
+  // Пункт 5
   array_fill(multi_container2);
+  // Пункт 6
   another_modify(multi_container1);
+  // Пункт 7
   concat_arrays(multi_container1, multi_container2);
   cout << endl;
 
