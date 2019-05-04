@@ -34,6 +34,7 @@ msgOverflow:
       
       addl  %edx, Sum
       jnc   next
+
       pushl msgOverflow
       jmp exit
 
@@ -42,11 +43,10 @@ msgOverflow:
       loop  for
 
       pushl Sum
-      jmp exit
-     
-   
-    exit:
       pushl $printf_format
+      jmp exit
+      
+    exit:
       call printf
       addl $8, %esp
 
