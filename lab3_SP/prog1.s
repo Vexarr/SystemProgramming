@@ -16,12 +16,12 @@ Sum:
     .long 0
 
 msgOverflow:
-    .string "Buffer overflow!\n"
+    .string "   Overflow!\n"
 
 .text
    .globl main
    main:
-      movl  $0, %edx  	 /*Текущий элемент массива*/
+      movl  $0, %edx  	 /*Регистр для текущего элемента массива*/
       movl  $array, %ebx /*Ссылка на массив*/
       movl  $len, %ecx
    
@@ -32,15 +32,15 @@ msgOverflow:
       cmpl  B, %edx
       jg    next          /*Если текущий элемент больше B, также скипаем код*/
       
-      addl  %edx, Sum
-      jnc   next
+      addl  %edx, Sum     /*Суммируем элемент с Sum*/
+      jnc   next          /*Если нет переполнения - идем в next*/
 
-      pushl msgOverflow
+      pushl $msgOverflow  /*В случае переполнения отправляем сообщение в стек и идем на выход*/
       jmp exit
 
    next:
-      addl $4, %ebx
-      loop  for
+      addl $4, %ebx       /*Увеличиваем регистр на размер одного элемента массива*/
+      loop  for           /*Выполняем цикл, уменьшая регистр ecx, пока он не станен равен 0*/
 
       pushl Sum
       pushl $printf_format
